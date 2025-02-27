@@ -1,5 +1,4 @@
-
-
+/* ------------color variables-------- */
 :root {
     --color-grass: #74CB48;
     --color-fire: #F57D31;
@@ -18,10 +17,16 @@
     --color-fairy: #E69EAC;
     --color-flying: #A891EC;
     --color-white: #fff;
-
+    --color-normal: #AAA67F;
 
 }
 
+
+
+/* DETAIL  GENERAL COLOR CHANGES */
+.normal {
+    background-color: var(--color-normal);
+}
 .grass {
     background-color: var(--color-grass);
 
@@ -77,30 +82,129 @@
 .rock {
     background-color: var(--color-rock);
 }
+
 .dark {
     background-color: var(--color-dark);
 }
+
 .dragon {
     background-color: var(--color-dragon);
 }
+
 .fairy {
     background-color: var(--color-fairy);
 }
+
 .flying {
     background-color: var(--color-flying);
 }
-.white{
+
+.white {
     background-color: var(--color-white);
 }
 
 
 
+/* -------------METER color changes--------------------------- */
+.meter--grass::-moz-meter-bar {
+    background:var(--color-grass);
+}
+.meter--fire::-moz-meter-bar {
+    background:var(--color-fire);
+}
+.meter--water::-moz-meter-bar {
+    background:var(--color-water);
+}
+.meter--bug::-moz-meter-bar {
+    background:var(--color-bug);
+}
+.meter--electric::-moz-meter-bar {
+    background:var(--color-electric);
+}
+.meter--ghost::-moz-meter-bar {
+    background:var(--color-ghost);
+}
+.meter--psychic::-moz-meter-bar {
+    background:var(--color-psychic);
+}
+.meter--ground::-moz-meter-bar {
+    background:var(--color-ground);
+}
+.meter--steel::-moz-meter-bar {
+    background:var(--color-steel);
+}
+.meter--gice::-moz-meter-bar {
+    background:var(--color-ice);
+}
+.meter--rock::-moz-meter-bar {
+    background:var(--color-rock);
+}
+.meter--poison::-moz-meter-bar {
+    background:var(--color-poison);
+}
+.meter--dark::-moz-meter-bar {
+    background:var(--color-dark);
+}
+.meter--dragon::-moz-meter-bar {
+    background:var(--color-dragon);
+}
+.meter--fairy::-moz-meter-bar {
+    background:var(--color-fairy);
+}
+.meter--flying::-moz-meter-bar {
+    background:var(--color-flying);
+}
+.meter--white::-moz-meter-bar {
+    background:var(--color-white);
+}
+.meter--normal::-moz-meter-bar {
+    background:var(--color-normal);
+}
 
 
+
+
+/* -------------DATAIL LAYOUT----------------------------- */
+
+.header-detail {
+    height: 20rem;
+
+    /* justify-content: space-between; */
+    gap: 1rem;
+    color: white;
+    align-items: center;
+    position: relative;
+}
 
 .name-id {
     display: flex;
-    justify-content: space-between;
+    gap: 1rem;
+    color: white;
+    align-items: center;
+}
+
+.name-id__pokemon {
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+.pad-number {
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.poke_detail_image {
+    width: 20rem;
+    height: 20rem;
+    position: absolute;
+    top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.poke-detail {
+    padding-top: 2rem;
 }
 
 .poke__image-detail {
@@ -159,17 +263,4 @@ meter {
     width: 100%;
 }
 
-/* meter {background: #0D76BE;} */
 
-
-meter::-webkit-meter-bar{
-
-    background:#b0d7ff;
-    
-    }
-    
-    meter::-moz-meter-bar{
-
-        background:#b0d7ff;
-        
-        }
