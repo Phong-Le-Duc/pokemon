@@ -9,7 +9,7 @@ divElm.innerHTML = `
 
 </header>
 <main></main>
-<footer>created 2025</footer>
+<footer>Phong Le Duc</footer>
 `
 
 document.querySelector("body").append(divElm)

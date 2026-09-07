@@ -11,7 +11,7 @@ function createPokeCard(poke) {
                   
                  <h2 class="poke__name">${poke.name}</h2>
                   
-                 <a class="poke__link" href="/detail.html?name=${poke.name}"></a>            
+                   <a class="poke__link" href="./detail?name=${encodeURIComponent(poke.name)}"></a>            
              </article>`
 }
 

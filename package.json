@@ -1,0 +1,11 @@
+{
+    "name": "pokedex-phong-le-duc",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "serve . -l 4173"
+    },
+    "devDependencies": {
+        "serve": "^14.2.4"
+    }
+}

@@ -13,10 +13,31 @@ divElm.innerHTML = `
 
 </header>
 <main></main>
-<footer>created 2025</footer>
+<footer>By Phong Le Duc</footer>
 `
 
 document.querySelector("body").append(divElm)
+
+let goTopBarElm = document.createElement("button")
+goTopBarElm.className = "go-top-bar"
+goTopBarElm.type = "button"
+goTopBarElm.textContent = "Go to top"
+document.querySelector("body").append(goTopBarElm)
+
+function toggleGoTopBar() {
+    if (window.scrollY > 400) {
+        goTopBarElm.classList.add("is-visible")
+    } else {
+        goTopBarElm.classList.remove("is-visible")
+    }
+}
+
+goTopBarElm.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+})
+
+window.addEventListener("scroll", toggleGoTopBar)
+toggleGoTopBar()
 
 
 
@@ -75,8 +96,53 @@ const observer = new IntersectionObserver(function (entries) {
 // her begynder selve komponentet
 let sectionElm = document.createElement("section")
 sectionElm.className = "pokelist"
+let searchInputElm = document.querySelector("#name")
+
+let allPokemon = []
+let activeSearch = ""
+let observedPokemonElm = null
 
 let currentOffset = 0
+
+function renderPokemonList() {
+    let filteredPokemon = allPokemon.filter(function (pokemon) {
+        if (!activeSearch) {
+            return true
+        }
+
+        let pokemonName = pokemon.name.toLowerCase()
+        let pokemonId = getIdFromPokemon(pokemon.url)
+        let paddedPokemonId = padNumber(pokemonId)
+
+        if (/^\d+$/.test(activeSearch)) {
+            let searchHasLeadingZero = activeSearch.length > 1 && activeSearch.startsWith("0")
+            if (searchHasLeadingZero) {
+                return paddedPokemonId.startsWith(activeSearch)
+            }
+
+            return pokemonId.startsWith(activeSearch) || paddedPokemonId.startsWith(activeSearch)
+        }
+
+        return pokemonName.includes(activeSearch)
+    })
+
+    if (filteredPokemon.length === 0) {
+        sectionElm.innerHTML = "<p>No Pokemon found.</p>"
+    } else {
+        sectionElm.innerHTML = filteredPokemon.map(function (pokemon) {
+            return createPokeCard(pokemon)
+        }).join("")
+    }
+
+    if (observedPokemonElm) {
+        observer.unobserve(observedPokemonElm)
+    }
+
+    observedPokemonElm = sectionElm.querySelector("article:nth-last-child(5)")
+    if (observedPokemonElm && !activeSearch) {
+        observer.observe(observedPokemonElm)
+    }
+}
 
 function fetchPokemon(offset) {
 
@@ -85,14 +151,8 @@ function fetchPokemon(offset) {
             return response.json()
         }).then(
             function (data) {
-                sectionElm.innerHTML += data.results.map(function (pokemon) {
-                    return createPokeCard(pokemon)
-                }).join("")
-
-
-                // OBSERVER TIL INFINITE SCROLL
-                let observedPokemon = sectionElm.querySelector("article:nth-last-child(5)")
-                observer.observe(observedPokemon)
+                allPokemon = allPokemon.concat(data.results)
+                renderPokemonList()
 
 
                 // --------OBSERVER TIL HARDCODED LAZY LOAD
@@ -105,11 +165,18 @@ function fetchPokemon(offset) {
 
             }
         )
-
-    document.querySelector("main").append(sectionElm)
+        .catch(function (error) {
+            console.error(error)
+        })
 
 }
 
+searchInputElm.addEventListener("input", function (event) {
+    activeSearch = event.target.value.trim().toLowerCase()
+    renderPokemonList()
+})
+
+document.querySelector("main").append(sectionElm)
 
 
 
